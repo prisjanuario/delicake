@@ -1,387 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Delicake — Small-batch pastries baked fresh daily</title>
-<meta name="description" content="Life is short. Eat the cake first. Small-batch, ridiculously good pastries baked fresh daily with real butter and zero drama.">
-<style>
-/* ---------- Fonts ---------- */
-@font-face{font-family:"Sniglet";src:url("fonts/Sniglet_Regular.ttf") format("truetype");font-weight:400;font-display:swap;}
-@font-face{font-family:"Cabin";src:url("fonts/Cabin-VariableFont_wdth,wght.ttf") format("truetype");font-weight:400 700;font-style:normal;font-display:swap;}
-@font-face{font-family:"Cabin";src:url("fonts/Cabin-Italic-VariableFont_wdth,wght.ttf") format("truetype");font-weight:400 700;font-style:italic;font-display:swap;}
-
-/* ---------- Tokens ---------- */
-:root{
-  --bg:#FFF5F0;
-  --ink:#421400;
-  --logo:#550000;
-  --pink:#FFD3DE;
-  --mint:#CDEBDB;
-  --butter:#FFE9A3;
-  --lilac:#DDD5F5;
-  --peach:#FFD8BC;
-  --rule:#421400;
-  --gutter:20px;
-  --ff-display:"Sniglet",system-ui,sans-serif;
-  --ff-text:"Cabin",system-ui,Helvetica,Arial,sans-serif;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
-body{background:var(--bg);color:var(--ink);font-family:var(--ff-text);font-size:1.125rem;line-height:1.5;font-weight:400;}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--logo);outline-offset:3px}
-.skip{position:absolute;left:var(--gutter);top:-100px;background:var(--logo);color:#fff;padding:.75rem 1rem;font-weight:700;z-index:10}
-.skip:focus{top:var(--gutter)}
-.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-
-/* ---------- 12-col grid: margin 0, gutter 20 ---------- */
-.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gutter);width:100%;}
-.rule{border-top:2px solid var(--rule)}
-
-/* ---------- Type ---------- */
-.logo{font-family:var(--ff-display);color:var(--logo);font-size:2rem;line-height:1;text-decoration:none;letter-spacing:-.01em}
-h1,h2,h3{font-weight:700;letter-spacing:-.02em;line-height:1.02;text-wrap:balance}
-h1{font-size:clamp(2.75rem,7.2vw,6.5rem)}
-h2{font-size:clamp(2rem,4vw,3.5rem)}
-h3{font-size:1.5rem;line-height:1.2;letter-spacing:-.01em}
-.label{font-size:.875rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;line-height:1}
-.lead{font-size:clamp(1.125rem,1.5vw,1.375rem);line-height:1.45;max-width:34ch}
-
-/* ---------- Buttons ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:56px;padding:0 1.75rem;background:var(--logo);color:#fff;font:inherit;font-weight:700;font-size:1.125rem;text-decoration:none;border:2px solid var(--logo);border-radius:999px;cursor:pointer;transition:transform .15s ease,background .15s ease}
-.btn:hover{background:var(--ink);border-color:var(--ink);transform:translateY(-2px)}
-.btn:active{transform:translateY(0)}
-.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
-.btn.ghost:hover{background:var(--ink);color:#fff}
-.btn .arrow{font-size:1.25em;line-height:0;transition:transform .15s ease}
-.btn:hover .arrow{transform:translateX(4px)}
-
-/* ---------- Header ---------- */
-.header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:2px solid var(--rule)}
-.header .grid{align-items:center;min-height:72px}
-.brand{grid-column:1/span 3;padding-left:var(--gutter);display:flex;align-items:center;min-height:72px}
-.nav{grid-column:4/span 6;display:flex;gap:clamp(1rem,2.5vw,2.5rem);justify-content:center}
-.nav a{text-decoration:none;font-weight:600;font-size:1.0625rem;padding:.75rem 0;display:inline-flex;min-height:48px;align-items:center;border-bottom:2px solid transparent}
-.nav a:hover{border-bottom-color:var(--ink)}
-.tools{grid-column:10/span 3;display:flex;justify-content:flex-end;gap:.5rem;padding-right:var(--gutter)}
-.icon-btn{min-width:48px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;text-decoration:none;font-weight:700;font-size:1rem;gap:.4rem}
-.icon-btn:hover{background:var(--pink)}
-.menu-btn{display:none;background:none;border:2px solid var(--ink);border-radius:999px;min-width:48px;min-height:48px;font:inherit;font-weight:700;color:var(--ink);cursor:pointer;align-items:center;justify-content:center;gap:.5rem;padding:0 1rem}
-.menu-btn:hover{background:var(--ink);color:#fff}
-
-/* ---------- Hero ---------- */
-.hero{border-bottom:2px solid var(--rule)}
-.hero .grid{min-height:calc(100vh - 74px);min-height:calc(100svh - 74px)}
-.hero-copy{grid-column:1/span 6;padding:clamp(2.5rem,6vw,6rem) var(--gutter) clamp(2.5rem,5vw,4rem);display:flex;flex-direction:column;justify-content:center;gap:1.75rem}
-.hero-copy .label{display:flex;align-items:center;gap:.75rem}
-.hero-copy .label::before{content:"";width:36px;height:2px;background:var(--ink)}
-.hero-art{grid-column:7/span 6;position:relative;border-left:2px solid var(--rule);background:var(--pink);overflow:hidden;min-height:520px}
-/* abstract "cake" built on the grid: 6 cols, 6 rows */
-.cake{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr);gap:var(--gutter);padding:var(--gutter)}
-.cake>div{border:2px solid var(--ink)}
-.c1{grid-column:1/span 2;grid-row:1/span 2;background:var(--butter);border-radius:50%}
-.c2{grid-column:3/span 4;grid-row:1/span 2;background:var(--lilac);border-radius:0 0 0 100vmax}
-.c3{grid-column:1/span 3;grid-row:3/span 2;background:var(--mint);border-radius:100vmax 100vmax 0 0}
-.c4{grid-column:4/span 3;grid-row:3/span 2;background:var(--bg)}
-.c5{grid-column:1/span 6;grid-row:5/span 2;background:var(--peach);border-radius:0 0 100vmax 100vmax}
-.c4 span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-size:clamp(1.5rem,3.2vw,3rem);color:var(--logo);text-align:center;line-height:1.05;padding:8%}
-.c4{position:relative}
-.marquee{position:absolute;left:0;right:0;bottom:0;border-top:2px solid var(--rule);background:var(--bg);overflow:hidden;white-space:nowrap;padding:.6rem 0;font-weight:700;font-size:.9375rem;letter-spacing:.12em;text-transform:uppercase}
-.marquee span{display:inline-block;padding-right:3rem}
-
-/* ---------- Section scaffolding ---------- */
-.section{padding:clamp(3rem,7vw,6.5rem) 0;border-bottom:2px solid var(--rule)}
-.section-head{grid-column:1/-1;display:grid;grid-template-columns:subgrid;align-items:end;margin-bottom:clamp(2rem,4vw,3.5rem)}
-.section-head .label{grid-column:1/span 2;padding-left:var(--gutter);padding-bottom:.4rem}
-.section-head h2{grid-column:3/span 8}
-.section-head .count{grid-column:11/span 2;padding-right:var(--gutter);text-align:right;font-family:var(--ff-display);color:var(--logo);font-size:2rem;line-height:1}
-
-/* Value props: 3-col strip */
-.props{grid-column:1/-1;display:grid;grid-template-columns:subgrid;row-gap:var(--gutter)}
-.prop{grid-column:span 4;border-top:2px solid var(--rule);padding-top:1.25rem;display:grid;grid-template-columns:auto 1fr;gap:1rem 1.25rem}
-.prop:first-child{padding-left:var(--gutter)}
-.prop:last-child{padding-right:var(--gutter)}
-.prop .num{font-family:var(--ff-display);font-size:1.25rem;color:var(--logo);grid-row:1/span 2;padding-top:.25rem}
-.prop h3{grid-column:2}
-.prop p{grid-column:2;max-width:30ch}
-.swatch{grid-column:1/-1;height:12px;margin-top:.5rem;border-radius:999px}
-.prop:nth-child(1) .swatch{background:var(--butter)}
-.prop:nth-child(2) .swatch{background:var(--mint)}
-.prop:nth-child(3) .swatch{background:var(--lilac)}
-
-/* Featured collections */
-.collections .section{padding-bottom:0}
-.cards{grid-column:1/-1;display:grid;grid-template-columns:subgrid;row-gap:var(--gutter)}
-.card{grid-column:span 4;display:flex;flex-direction:column;text-decoration:none;border:2px solid var(--rule);border-bottom:0;position:relative;transition:transform .2s ease}
-.card:hover{transform:translateY(-6px)}
-.card:first-child{border-left:0}
-.card:last-child{border-right:0}
-.card .art{aspect-ratio:4/3;position:relative;overflow:hidden;border-bottom:2px solid var(--rule)}
-.card .art i{position:absolute;border:2px solid var(--ink);display:block}
-.card.pink .art{background:var(--pink)}
-.card.mint .art{background:var(--mint)}
-.card.butter .art{background:var(--butter)}
-/* signature cake: three stacked tiers */
-.pink .t1{left:15%;right:15%;bottom:12%;height:22%;background:var(--lilac);border-radius:0 0 24px 24px}
-.pink .t2{left:25%;right:25%;bottom:34%;height:22%;background:var(--bg)}
-.pink .t3{left:35%;right:35%;bottom:56%;height:22%;background:var(--butter);border-radius:24px 24px 0 0}
-.pink .t4{left:48%;top:6%;width:4%;height:14%;background:var(--logo);border-color:var(--logo)}
-/* pastries: croissant arcs */
-.mint .t1{left:12%;top:30%;width:40%;height:40%;background:var(--peach);border-radius:100vmax 100vmax 0 0;border-bottom:0}
-.mint .t2{left:52%;top:30%;width:36%;height:40%;background:var(--butter);border-radius:0 0 100vmax 100vmax;border-top:0}
-.mint .t3{left:12%;top:70%;right:12%;height:2px;background:var(--ink);border:0}
-/* box of treats: 3x2 bites */
-.butter .t1,.butter .t2,.butter .t3,.butter .t4,.butter .t5,.butter .t6{width:18%;aspect-ratio:1;border-radius:50%}
-.butter .t1{left:14%;top:18%;background:var(--pink)}
-.butter .t2{left:41%;top:18%;background:var(--lilac)}
-.butter .t3{left:68%;top:18%;background:var(--mint)}
-.butter .t4{left:14%;top:54%;background:var(--mint)}
-.butter .t5{left:41%;top:54%;background:var(--bg)}
-.butter .t6{left:68%;top:54%;background:var(--peach)}
-.card .body{padding:1.5rem var(--gutter) 2rem;display:grid;gap:.75rem;flex:1}
-.card .body .more{margin-top:auto;font-weight:700;display:inline-flex;align-items:center;gap:.5rem;min-height:48px;padding-top:.5rem;border-top:2px solid var(--rule)}
-.card:hover .more{text-decoration:underline;text-underline-offset:4px}
-
-/* About */
-.about .section{background:var(--lilac);border-top:0}
-.about-h{grid-column:1/span 6;padding-left:var(--gutter)}
-.about-b{grid-column:7/span 5;display:grid;gap:2rem;align-self:end}
-.about-b p{font-size:clamp(1.125rem,1.4vw,1.3125rem);line-height:1.5}
-
-/* Footer / newsletter */
-.news{padding:clamp(3.5rem,8vw,7rem) 0;text-align:center;border-bottom:2px solid var(--rule)}
-.news .inner{grid-column:3/span 8;display:grid;justify-items:center;gap:1.25rem}
-.news p{max-width:42ch;font-size:1.25rem}
-.form{display:grid;grid-template-columns:1fr auto;gap:var(--gutter);width:100%;max-width:640px;margin-top:.5rem;text-align:left}
-.form label{font-weight:700;font-size:1rem;display:block;margin-bottom:.5rem}
-.form input{width:100%;min-height:56px;border:2px solid var(--ink);border-radius:999px;background:#fff;padding:0 1.25rem;font:inherit;font-size:1.125rem;color:var(--ink)}
-.form input::placeholder{color:#6b4a36}
-.form .btn{align-self:end}
-.fine{font-size:1rem;opacity:.9}
-.bottom .grid{align-items:center;padding:1.5rem 0}
-.bottom .logo{grid-column:1/span 4;padding-left:var(--gutter)}
-.bottom nav{grid-column:5/span 5;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem}
-.bottom nav a{text-decoration:none;font-weight:600;min-height:48px;display:inline-flex;align-items:center}
-.bottom nav a:hover{text-decoration:underline;text-underline-offset:4px}
-.bottom small{grid-column:10/span 3;text-align:right;padding-right:var(--gutter);font-size:1rem}
-
-/* ---------- Tablet ---------- */
-@media (max-width:1024px){
-  .nav{grid-column:4/span 5}
-  .hero-copy{grid-column:1/span 7}
-  .hero-art{grid-column:8/span 5}
-  .section-head h2{grid-column:3/span 9}
-  .section-head .count{display:none}
-  .prop,.card{grid-column:span 6}
-  .prop:last-child,.card:last-child{grid-column:span 12}
-  .card:last-child{border-left:0;border-right:0}
-  .prop:nth-child(2){padding-right:var(--gutter)}
-  .prop:last-child{padding-left:var(--gutter)}
-  .about-h{grid-column:1/span 12;margin-bottom:2rem;padding-right:var(--gutter)}
-  .about-b{grid-column:1/span 10;padding-left:var(--gutter)}
-  .news .inner{grid-column:2/span 10}
-}
-
-/* ---------- Mobile ---------- */
-@media (max-width:720px){
-  body{font-size:1.0625rem}
-  .grid{column-gap:var(--gutter)}
-  .header .grid{grid-template-columns:1fr auto;min-height:64px}
-  .brand{grid-column:1;min-height:64px}
-  .nav{display:none;grid-column:1/-1;flex-direction:column;align-items:stretch;gap:0;border-top:2px solid var(--rule);padding:0 var(--gutter)}
-  .nav.open{display:flex}
-  .nav a{min-height:56px;border-bottom:2px solid var(--rule);font-size:1.125rem}
-  .nav a:last-child{border-bottom:0}
-  .tools{grid-column:2;grid-row:1;padding-right:var(--gutter)}
-  .nav{grid-row:2}
-  .menu-btn{display:inline-flex}
-  .hero .grid{min-height:0}
-  .hero-copy{grid-column:1/-1;padding:2.5rem var(--gutter) 2.5rem;gap:1.25rem}
-  .lead{max-width:none}
-  .btn{width:100%;min-height:56px}
-  .hero-art{grid-column:1/-1;border-left:0;border-top:2px solid var(--rule);min-height:360px;aspect-ratio:1/1}
-  .cake{gap:12px;padding:12px}
-  .c4{overflow:hidden}.c4 span{font-size:clamp(.8rem,4.2vw,1.1rem);padding:6%}
-  .marquee{font-size:.8125rem}
-  .section-head{margin-bottom:1.75rem;row-gap:.75rem}
-  .section-head .label,.section-head h2{grid-column:1/-1;padding:0 var(--gutter)}
-  .section-head .count{display:none}
-  .prop,.prop:last-child,.card,.card:last-child{grid-column:1/-1}
-  .prop{padding-left:var(--gutter);padding-right:var(--gutter)}
-  .prop p{max-width:none}
-  .card{border-left:0;border-right:0}
-  .card+.card{margin-top:0}
-  .about-h,.about-b{grid-column:1/-1;padding:0 var(--gutter)}
-  .about-h{margin-bottom:1.5rem}
-  .news .inner{grid-column:1/-1;padding:0 var(--gutter)}
-  .news p{font-size:1.125rem}
-  .form{grid-template-columns:1fr}
-  .bottom .grid{row-gap:1rem;padding:1.5rem 0 2rem}
-  .bottom .logo,.bottom nav,.bottom small{grid-column:1/-1;padding:0 var(--gutter);text-align:left}
-}
-</style>
+<title>Delicake — Small-batch pastries, baked fresh daily</title>
+<meta name="description" content="Delicake bakes small-batch, ridiculously good pastries fresh every day with real butter and zero drama. Local doorstep delivery within the hour.">
+<meta name="theme-color" content="#FFF5F0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23550000'/%3E%3Ccircle cx='16' cy='13' r='5' fill='%23F9D2D7'/%3E%3Crect x='6' y='19' width='20' height='7' rx='2' fill='%23FBE9B7'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip-link" href="#main">Skip to main content</a>
 
+<!-- Announcement -->
+<div class="announce">
+  <div class="container announce__inner">
+    <span class="label">Free local delivery over $35</span>
+    <span class="label">Baked from 5 AM · Sold out by 2 PM</span>
+  </div>
+</div>
+
+<!-- Header -->
 <header class="header">
-  <div class="grid">
-    <div class="brand"><a class="logo" href="#" aria-label="Delicake home">Delicake</a></div>
-    <nav class="nav" id="nav" aria-label="Primary">
-      <a href="#collections">Shop</a>
-      <a href="#collections">Collections</a>
-      <a href="#about">About</a>
-      <a href="#join">Contact</a>
+  <div class="container header__inner">
+    <a class="wordmark" href="#main" aria-label="Delicake — home">Delicake<span class="wordmark__dot">.</span></a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+      <span class="menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      Menu
+    </button>
+
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <a class="nav__link" href="#collections">Shop</a>
+      <a class="nav__link" href="#collections">Collections</a>
+      <a class="nav__link" href="#about">About</a>
+      <a class="nav__link" href="#newsletter">Contact</a>
+      <a class="nav__bag" href="#main">Bag <span aria-hidden="true">·</span> <span>0</span><span class="visually-hidden">items</span></a>
     </nav>
-    <div class="tools">
-      <a class="icon-btn" href="#" aria-label="Cart, 0 items">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 12H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
-        <span aria-hidden="true">0</span>
-      </a>
-      <button class="menu-btn" aria-expanded="false" aria-controls="nav" onclick="const n=document.getElementById('nav');const o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);this.querySelector('span').textContent=o?'Close':'Menu'"><span>Menu</span></button>
-    </div>
   </div>
 </header>
 
 <main id="main">
-  <!-- Hero -->
-  <section class="hero" aria-labelledby="hero-h">
-    <div class="grid">
-      <div class="hero-copy">
-        <p class="label">Small-batch pastry shop</p>
-        <h1 id="hero-h">Life is short. Eat the cake first.</h1>
+
+  <!-- 01 — Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container grid hero__grid">
+      <div class="hero__copy">
+        <p class="hero__eyebrow label">01 — Bakeshop / Est. 2019</p>
+        <h1 class="display" id="hero-title">Life is short. <em>Eat the cake</em> first.</h1>
         <p class="lead">Small-batch, ridiculously good pastries baked fresh daily with real butter and zero drama.</p>
-        <div><a class="btn" href="#collections">Treat Yourself <span class="arrow" aria-hidden="true">→</span></a></div>
-      </div>
-      <div class="hero-art" aria-hidden="true">
-        <div class="cake">
-          <div class="c1"></div>
-          <div class="c2"></div>
-          <div class="c3"></div>
-          <div class="c4"><span>Baked fresh since&nbsp;5&nbsp;AM</span></div>
-          <div class="c5"></div>
+        <div class="hero__actions">
+          <a class="btn" href="#collections">Treat Yourself <span class="btn__arrow" aria-hidden="true">→</span></a>
+          <a class="text-link" href="#props">See what makes it good</a>
         </div>
-        <div class="marquee"><span>Real butter</span><span>•</span><span>Organic flour</span><span>•</span><span>Zero drama</span><span>•</span><span>Delivered within the hour</span></div>
+      </div>
+
+      <div class="hero__meta">
+        <ul class="hero__stats">
+          <li class="hero__stat"><span>Batches per day</span> <b>6</b></li>
+          <li class="hero__stat"><span>Butter content</span> <b>100%</b></li>
+          <li class="hero__stat"><span>Delivery window</span> <b>60 min</b></li>
+        </ul>
+      </div>
+
+      <div class="figure" aria-hidden="true">
+        <div class="spec spec--cake"><span class="spec__art"><i></i><i></i><i></i></span><span class="spec__cap">01 / Tiered</span></div>
+        <div class="spec spec--dome"><span class="spec__art"><i></i></span><span class="spec__cap">02 / Dome</span></div>
+        <div class="spec spec--dots"><span class="spec__art"><i></i></span><span class="spec__cap">03 / Sprinkle</span></div>
+        <div class="spec spec--round"><span class="spec__art"><i></i></span><span class="spec__cap">04 / Macaron</span></div>
+        <div class="spec spec--bars"><span class="spec__art"><i></i><i></i><i></i></span><span class="spec__cap">05 / Éclair</span></div>
+        <div class="spec spec--slice"><span class="spec__art"><i></i><i></i></span><span class="spec__cap">06 / Slice</span></div>
       </div>
     </div>
   </section>
 
-  <!-- Value props -->
-  <section class="section" aria-labelledby="props-h">
-    <div class="grid">
-      <div class="section-head">
-        <p class="label">Why Delicake</p>
-        <h2 id="props-h">Value Props</h2>
-        <p class="count" aria-hidden="true">01</p>
+  <!-- 02 — Value Props -->
+  <section class="section" id="props" aria-labelledby="props-title">
+    <div class="container grid section__grid">
+      <div class="section__head">
+        <p class="label">02 — Why Delicake</p>
+        <h2 class="section-title" id="props-title">Value Props</h2>
       </div>
+      <p class="section__note">Three promises we keep every single morning, before the city is awake.</p>
+
       <div class="props">
-        <article class="prop">
-          <span class="num" aria-hidden="true">01</span>
-          <h3>Pure Goodness</h3>
-          <p>100% real butter, organic flour, and zero artificial shortcuts.</p>
-          <span class="swatch"></span>
-        </article>
-        <article class="prop">
-          <span class="num" aria-hidden="true">02</span>
-          <h3>Baked Today, Gone Today</h3>
-          <p>Made in small batches from 5 AM so it hits your tongue warm.</p>
-          <span class="swatch"></span>
-        </article>
-        <article class="prop">
-          <span class="num" aria-hidden="true">03</span>
-          <h3>Swift Sweet Tooth Delivery</h3>
-          <p>Local doorstep drops within the hour, safe and intact.</p>
-          <span class="swatch"></span>
-        </article>
+        <ul class="props__list">
+          <li class="prop">
+            <span class="prop__index">01</span>
+            <span class="prop__mark" aria-hidden="true"></span>
+            <h3>Pure Goodness</h3>
+            <p>100% real butter, organic flour, and zero artificial shortcuts.</p>
+          </li>
+          <li class="prop">
+            <span class="prop__index">02</span>
+            <span class="prop__mark" aria-hidden="true"></span>
+            <h3>Baked Today, Gone Today</h3>
+            <p>Made in small batches from 5 AM so it hits your tongue warm.</p>
+          </li>
+          <li class="prop">
+            <span class="prop__index">03</span>
+            <span class="prop__mark" aria-hidden="true"></span>
+            <h3>Swift Sweet Tooth Delivery</h3>
+            <p>Local doorstep drops within the hour, safe and intact.</p>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- Featured collections -->
-  <section class="collections" id="collections" aria-labelledby="coll-h">
-    <div class="section">
-      <div class="grid">
-        <div class="section-head">
-          <p class="label">Shop by mood</p>
-          <h2 id="coll-h">Featured Collections</h2>
-          <p class="count" aria-hidden="true">02</p>
-        </div>
-        <div class="cards">
-          <a class="card pink" href="#">
-            <div class="art" aria-hidden="true"><i class="t1"></i><i class="t2"></i><i class="t3"></i><i class="t4"></i></div>
-            <div class="body">
+  <!-- 03 — Featured Collections -->
+  <section class="section" id="collections" aria-labelledby="collections-title">
+    <div class="container grid section__grid">
+      <div class="section__head">
+        <p class="label">03 — Shop</p>
+        <h2 class="section-title" id="collections-title">Featured Collections</h2>
+      </div>
+      <p class="section__note">Pick a lane: celebrate big, fix the morning, or share a little of everything.</p>
+
+      <div class="collections">
+        <ul class="collections__list">
+          <li>
+            <a class="card card--pink" href="#collections">
+              <span class="card__top"><span class="label">Collection 01</span><span class="label">12 items</span></span>
+              <span class="card__glyph" aria-hidden="true"><i></i><i></i><i></i></span>
               <h3>Signature Cakes</h3>
               <p>Showstoppers meant to be sliced thick and celebrated loud.</p>
-              <span class="more">Shop cakes <span aria-hidden="true">→</span></span>
-            </div>
-          </a>
-          <a class="card mint" href="#">
-            <div class="art" aria-hidden="true"><i class="t1"></i><i class="t2"></i><i class="t3"></i></div>
-            <div class="body">
+              <span class="card__cta">Shop cakes <span aria-hidden="true">→</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="card card--butter" href="#collections">
+              <span class="card__top"><span class="label">Collection 02</span><span class="label">18 items</span></span>
+              <span class="card__glyph" aria-hidden="true"><i></i><i></i><i></i></span>
               <h3>Daily Pastries</h3>
               <p>Flaky, buttery morning fixes to rescue your daily routine.</p>
-              <span class="more">Shop pastries <span aria-hidden="true">→</span></span>
-            </div>
-          </a>
-          <a class="card butter" href="#">
-            <div class="art" aria-hidden="true"><i class="t1"></i><i class="t2"></i><i class="t3"></i><i class="t4"></i><i class="t5"></i><i class="t6"></i></div>
-            <div class="body">
+              <span class="card__cta">Shop pastries <span aria-hidden="true">→</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="card card--mint" href="#collections">
+              <span class="card__top"><span class="label">Collection 03</span><span class="label">9 items</span></span>
+              <span class="card__glyph" aria-hidden="true"><i></i><i></i><i></i></span>
               <h3>Box of Treats</h3>
               <p>Mix-and-match mini bites for sharing (or hiding for later).</p>
-              <span class="more">Build a box <span aria-hidden="true">→</span></span>
-            </div>
-          </a>
-        </div>
+              <span class="card__cta">Build a box <span aria-hidden="true">→</span></span>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- About -->
-  <section class="about" id="about" aria-labelledby="about-h">
-    <div class="section">
-      <div class="grid">
-        <h2 class="about-h" id="about-h">Flour, sugar, butter, joy.</h2>
-        <div class="about-b">
-          <p>Delicake started with a simple obsession: crafting pastries that taste like a warm hug and look like a piece of art. No stuffy bakery rules—just vibrant flavors, honest baking, and a lot of sweet love.</p>
-          <div><a class="btn ghost" href="#">Our Sweet Story <span class="arrow" aria-hidden="true">→</span></a></div>
-        </div>
+  <!-- 04 — About snippet -->
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="container grid about__grid">
+      <p class="label about__label">04 — About</p>
+      <div class="about__headline">
+        <h2 id="about-title">Flour, sugar, butter, joy.</h2>
+      </div>
+      <div class="about__body">
+        <p class="body-text">Delicake started with a simple obsession: crafting pastries that taste like a warm hug and look like a piece of art. No stuffy bakery rules—just vibrant flavors, honest baking, and a lot of sweet love.</p>
+        <a class="btn btn--ghost" href="#about">Our Sweet Story <span class="btn__arrow" aria-hidden="true">→</span></a>
+      </div>
+      <ul class="about__ticker">
+        <li class="tag">Real butter</li>
+        <li class="tag">Organic flour</li>
+        <li class="tag">Small batch</li>
+        <li class="tag">Baked at 5 AM</li>
+        <li class="tag">Zero drama</li>
+        <li class="tag">Local delivery</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 05 — Newsletter -->
+  <section class="newsletter" id="newsletter" aria-labelledby="newsletter-title">
+    <div class="container grid newsletter__grid">
+      <div class="newsletter__inner">
+        <p class="label">05 — Newsletter</p>
+        <h2 id="newsletter-title">Join the sugar circle.</h2>
+        <p>Get 10% off your first order plus secret seasonal drops in your inbox.</p>
+        <form class="form" action="#" method="post" novalidate>
+          <div class="form__field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="email-hint">
+          </div>
+          <button class="btn" type="submit">Get 10% Off</button>
+          <p class="form__hint" id="email-hint">One email a week, unsubscribe anytime.</p>
+        </form>
       </div>
     </div>
   </section>
 </main>
 
-<footer>
-  <section class="news" id="join" aria-labelledby="join-h">
-    <div class="grid">
-      <div class="inner">
-        <p class="label">Newsletter</p>
-        <h2 id="join-h">Join the sugar circle.</h2>
-        <p>Get 10% off your first order plus secret seasonal drops in your inbox.</p>
-        <form class="form" action="#" onsubmit="event.preventDefault()">
-          <div>
-            <label for="email">Email address</label>
-            <input id="email" type="email" name="email" autocomplete="email" placeholder="you@example.com" required>
-          </div>
-          <button class="btn" type="submit">Get 10% Off</button>
-        </form>
-        <p class="fine">No spam, just sugar. Unsubscribe anytime.</p>
-      </div>
+<!-- Footer -->
+<footer class="footer">
+  <div class="container grid footer__grid">
+    <div class="footer__brand">
+      <span class="wordmark">Delicake<span class="wordmark__dot">.</span></span>
+      <p>Small-batch bakeshop. 148 Sugar Lane, Lisbon. Open Tue–Sun, 7 AM until it is gone.</p>
     </div>
-  </section>
-  <div class="bottom">
-    <div class="grid">
-      <a class="logo" href="#" aria-label="Delicake home">Delicake</a>
-      <nav aria-label="Footer">
-        <a href="#collections">Shop</a>
-        <a href="#about">About</a>
-        <a href="#">Delivery</a>
-        <a href="#">Privacy</a>
-      </nav>
-      <small>© 2025 Delicake. Baked with love.</small>
-    </div>
+    <nav class="footer__col" aria-labelledby="f-shop">
+      <h3 id="f-shop">Shop</h3>
+      <ul>
+        <li><a href="#collections">Signature Cakes</a></li>
+        <li><a href="#collections">Daily Pastries</a></li>
+        <li><a href="#collections">Box of Treats</a></li>
+      </ul>
+    </nav>
+    <nav class="footer__col" aria-labelledby="f-help">
+      <h3 id="f-help">Help</h3>
+      <ul>
+        <li><a href="#newsletter">Delivery</a></li>
+        <li><a href="#newsletter">Allergens</a></li>
+        <li><a href="#newsletter">Contact</a></li>
+      </ul>
+    </nav>
+    <nav class="footer__col" aria-labelledby="f-social">
+      <h3 id="f-social">Follow</h3>
+      <ul>
+        <li><a href="#main">Instagram</a></li>
+        <li><a href="#main">TikTok</a></li>
+        <li><a href="#main">Pinterest</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="container footer__bar">
+    <span>© 2025 Delicake. All rights reserved.</span>
+    <span><a href="#main">Privacy</a> · <a href="#main">Terms</a> · <a href="#main">Accessibility</a></span>
   </div>
 </footer>
+
+<div class="grid-overlay" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+<script>
+  // Mobile navigation disclosure
+  var toggle = document.querySelector('.menu-toggle');
+  var nav = document.getElementById('primary-nav');
+  toggle.addEventListener('click', function () {
+    var open = nav.classList.toggle('nav--open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  nav.addEventListener('click', function (e) {
+    if (e.target.closest('a') && window.innerWidth <= 760) {
+      nav.classList.remove('nav--open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+  // Design-review aid: press "G" to inspect the 12-column grid
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'g' || e.key === 'G') document.body.classList.toggle('show-grid');
+  });
+</script>
 </body>
 </html>
